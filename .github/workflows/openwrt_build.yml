@@ -88,6 +88,15 @@ jobs:
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
+
+    - name: 删除部分冲突的package
+      id: delpackage
+      run: |
+        cd openwrt/scripts
+        ls -l
+        rm -rf feeds/smallpack/{base-files,dnsmasq,firewall*,fullconenat,libnftnl,nftables,ppp,opkg,ucl,upx,vsftpd*,miniupnpd-iptables,wireless-regdb}
+
+
     - name: 编译OpenWrt固件
       id: compile
       run: |
