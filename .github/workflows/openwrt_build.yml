@@ -89,6 +89,14 @@ jobs:
         find dl -size -1024c -exec rm -f {} \;
 
 
+    - name: 等待SSH连接
+      id: waitssh
+      uses: mxschmitt/action-tmate@v3
+      timeout-minutes: 20
+      with:
+        detached: false
+
+
     - name: 删除部分冲突的package
       id: delpackage
       run: |
