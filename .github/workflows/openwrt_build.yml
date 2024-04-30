@@ -89,20 +89,20 @@ jobs:
         find dl -size -1024c -exec rm -f {} \;
 
 
-#    - name: 等待SSH连接
-#      id: waitssh
-#      uses: mxschmitt/action-tmate@v3
-#      timeout-minutes: 20
-#      with:
-#        detached: false
-
-
     - name: 删除部分冲突的package
       id: delpackage
       run: |
         cd openwrt
         ls -l feeds/smallpack
         rm -rf feeds/smallpack/{base-files,dnsmasq,firewall*,fullconenat,libnftnl,nftables,ppp,opkg,ucl,upx,vsftpd*,miniupnpd-iptables,wireless-regdb}
+
+
+    - name: 等待SSH连接
+      id: waitssh
+      uses: mxschmitt/action-tmate@v3
+      timeout-minutes: 20
+      with:
+        detached: false
 
 
     - name: 编译OpenWrt固件
