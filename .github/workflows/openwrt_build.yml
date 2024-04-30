@@ -64,10 +64,6 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
         pwd
-        ls -l
-        ls -l scripts
-        ls -l scripts/feeds
-        ls -l scripts/feeds/smpackage/
 
     - name: 更新订阅源
       run: cd openwrt && ./scripts/feeds update -a
