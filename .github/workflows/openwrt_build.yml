@@ -94,6 +94,10 @@ jobs:
       run: |
         cd openwrt/scripts
         ls -l
+        pwd
+        ls -l openwrt/scripts/feeds
+        pwd
+        ls -l openwrt/scripts/feeds/smallpack
         rm -rf feeds/smallpack/{base-files,dnsmasq,firewall*,fullconenat,libnftnl,nftables,ppp,opkg,ucl,upx,vsftpd*,miniupnpd-iptables,wireless-regdb}
 
 
