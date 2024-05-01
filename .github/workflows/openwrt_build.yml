@@ -94,6 +94,7 @@ jobs:
       run: |
         cd openwrt
         ls -l feeds/smallpack
+        rm -rf feeds/luci/applications/luci-app-upnp
         rm -rf feeds/smallpack/{base-files,dnsmasq,firewall*,fullconenat,libnftnl,nftables,ppp,opkg,ucl,upx,vsftpd*,wireless-regdb}
 
 
