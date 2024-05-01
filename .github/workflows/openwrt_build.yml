@@ -79,31 +79,31 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
 
+    - name: 等待SSH连接
+      id: waitssh
+      uses: mxschmitt/action-tmate@v3
+      timeout-minutes: 30
+      with:
+        detached: false
+
     - name: 下载编译所需包
       id: package
       run: |
         cd openwrt
-        make defconfig
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
+#        cd openwrt
+#        make defconfig
 
-    - name: 删除部分冲突的package
-      id: delpackage
-      run: |
-        cd openwrt
-        ls -l feeds/smallpack
-        rm -rf feeds/luci/applications/luci-app-upnp
-        rm -rf feeds/smallpack/{base-files,dnsmasq,firewall*,fullconenat,libnftnl,nftables,ppp,opkg,ucl,upx,vsftpd*,wireless-regdb}
-
-
-#    - name: 等待SSH连接
-#      id: waitssh
-#      uses: mxschmitt/action-tmate@v3
-#      timeout-minutes: 20
-#      with:
-#        detached: false
+#    - name: 删除部分冲突的package
+#      id: delpackage
+#      run: |
+#        cd openwrt
+#        ls -l feeds/smallpack
+#        rm -rf feeds/luci/applications/luci-app-upnp
+#        rm -rf feeds/smallpack/{base-files,dnsmasq,firewall*,fullconenat,libnftnl,nftables,ppp,opkg,ucl,upx,vsftpd*,wireless-regdb}
 
 
     - name: 编译OpenWrt固件
