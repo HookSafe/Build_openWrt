@@ -74,6 +74,10 @@ jobs:
         rm -rf feeds/packages/lang/golang
         git clone https://github.com/kenzok8/golang feeds/packages/lang/golang
         ./scripts/feeds install -a
+        ./scripts/feeds install -p packages bc libpam libunistring gperf pcre2
+        ./scripts/feeds install -p luci luci-compat luci-lib-base luci-lua-runtime
+        ls feeds/packages/utils/bc/Makefile 2>/dev/null && echo "bc installed"
+        ls feeds/luci/modules/luci-base/Makefile 2>/dev/null && echo "luci-base installed"
 
     - name: 加载自定义配置
       run: |
