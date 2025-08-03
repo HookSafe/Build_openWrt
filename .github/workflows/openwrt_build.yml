@@ -90,7 +90,14 @@ jobs:
       id: package
       run: |
         cd openwrt
-        make download -j8
+        echo "============================================="
+        echo "============================================="
+        echo "============================================="
+        cat .config
+        echo "============================================="
+        echo "============================================="
+        echo "============================================="
+        make download -j16
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
@@ -104,13 +111,14 @@ jobs:
 #        rm -rf feeds/luci/applications/luci-app-upnp
 #        rm -rf feeds/smallpack/{base-files,dnsmasq,firewall*,fullconenat,libnftnl,nftables,ppp,opkg,ucl,upx,vsftpd*,wireless-regdb}
 
-
+#临时关闭多线程编译
+#make -j$(nproc) || make -j1 || make -j1 V=s
     - name: 编译OpenWrt固件
       id: compile
       run: |
         cd openwrt
         echo -e "$(nproc) thread compile"
-        make -j$(nproc) || make -j1 || make -j1 V=s
+        make -j1 V=sc
         echo "status=success" >> $GITHUB_OUTPUT
         grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
         [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
