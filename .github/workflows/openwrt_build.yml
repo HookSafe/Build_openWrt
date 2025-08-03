@@ -90,7 +90,7 @@ jobs:
       with:
         detached: false
 
-    - name: 下载编译所需包
+    - name: 下载编译所需包&显示config和存储信息
       id: package
       run: |
         cd openwrt
