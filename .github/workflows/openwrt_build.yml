@@ -94,8 +94,7 @@ jobs:
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
-#        cd openwrt
-#        make defconfig
+        make defconfig
 
 #    - name: 删除部分冲突的package
 #      id: delpackage
