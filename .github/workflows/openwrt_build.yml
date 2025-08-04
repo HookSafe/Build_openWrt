@@ -87,12 +87,12 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
 
-    - name: 等待SSH连接
-      id: waitssh
-      uses: mxschmitt/action-tmate@v3
-      timeout-minutes: 30
-      with:
-        detached: false
+#    - name: 等待SSH连接
+#      id: waitssh
+#      uses: mxschmitt/action-tmate@v3
+#      timeout-minutes: 30
+#      with:
+#        detached: false
 
     - name: 下载编译所需包&显示config和存储信息
       id: package
