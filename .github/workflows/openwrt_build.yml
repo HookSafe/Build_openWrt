@@ -119,8 +119,7 @@ jobs:
         df -hT
         echo "============================================="
         echo "============================================="
-        make defconfig
-        make download -j4
+        make download -j16
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
