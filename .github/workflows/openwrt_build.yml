@@ -78,18 +78,16 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
         pwd
-
+#rm -rf feeds/packages/net/{alist,adguardhome,mosdns,xray*,v2ray*,v2ray*,sing*,smartdns}
+#rm -rf feeds/packages/utils/v2dat
+#rm -rf feeds/packages/lang/golang
+#rm -rf feeds/luci/applications/luci-app-mosdns
     - name: 处理订阅源
       run: |
         cd openwrt
-        ./scripts/feeds update -a && rm -rf feeds/luci/applications/luci-app-mosdns
-        rm -rf feeds/packages/net/{alist,adguardhome,mosdns,xray*,v2ray*,v2ray*,sing*,smartdns}
-        rm -rf feeds/packages/utils/v2dat
-        rm -rf feeds/packages/lang/golang
+        ./scripts/feeds update -a
         git clone https://github.com/kenzok8/golang feeds/packages/lang/golang
         ./scripts/feeds install -a
-        ./scripts/feeds install -p packages bc libpam libunistring gperf pcre2
-        ./scripts/feeds install -p luci luci-compat luci-lib-base luci-lua-runtime
         ls feeds/packages/utils/bc/Makefile 2>/dev/null && echo "bc installed"
         ls feeds/luci/modules/luci-base/Makefile 2>/dev/null && echo "luci-base installed"
 
@@ -133,7 +131,7 @@ jobs:
       run: |
         cd openwrt
         echo -e "$(nproc) thread compile"
-        make -j$(nproc)
+        make -j1
         echo "status=success" >> $GITHUB_OUTPUT
         grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
         [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
